@@ -14,6 +14,7 @@ export class RecipeEditComponent implements OnInit {
   recipe: Recipe;
   recipeID: number;
   recipeForm: FormGroup;
+  ingrControls: any[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,18 +30,18 @@ export class RecipeEditComponent implements OnInit {
         this.recipeID = parseInt(params.id);
       } else {
         this.isNewRecipe = true;
+        this.recipe = null;
+        this.recipeID = null;
+        this.ingrControls = [];
       }
-      // console.log(this.recipe);
-      // console.log(this.isNewRecipe);
       this.initForm();
     });
     console.log(this.recipeID);
   }
   initForm() {
-    let ingrControls = [];
-    if (typeof this.recipe !== 'undefined') {
+    if (!this.isNewRecipe) {
       if (this.recipe.ingredients) {
-        ingrControls = this.recipe.ingredients.map(
+        this.ingrControls = this.recipe.ingredients.map(
           ingr =>
             new FormGroup({
               name: new FormControl(ingr.name, Validators.required),
@@ -50,7 +51,7 @@ export class RecipeEditComponent implements OnInit {
               ])
             })
         );
-        console.log(ingrControls);
+        console.log(this.ingrControls);
       }
     }
 
@@ -67,7 +68,8 @@ export class RecipeEditComponent implements OnInit {
         this.isNewRecipe ? '' : this.recipe.description,
         Validators.required
       ),
-      ingredients: new FormArray(this.isNewRecipe ? [] : ingrControls)
+      ingredients: new FormArray(this.isNewRecipe ? [] : this.ingrControls)
+      // ingredients: new FormArray(this.ingrControls)
     });
   }
   onAddNewIngr() {
@@ -78,7 +80,12 @@ export class RecipeEditComponent implements OnInit {
         Validators.pattern(/^[1-9]+[0-9]?$/)
       ])
     });
-    (<FormArray>this.recipeForm.controls.ingredients).push(ingrFormControl);
+    if (this.isNewRecipe) {
+      (<FormArray>this.recipeForm.controls.ingredients).push(ingrFormControl);
+      this.ingrControls.push(ingrFormControl);
+    } else {
+      (<FormArray>this.recipeForm.controls.ingredients).push(ingrFormControl);
+    }
   }
 
   onSubmit() {
