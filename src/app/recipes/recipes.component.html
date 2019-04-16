@@ -1,0 +1,23 @@
+<!-- This Component is just a wrapper for (recipe List) and (recipe Details) -->
+
+<div class="row">
+  <div class="col-md-5">
+    <app-recipe-list></app-recipe-list>
+  </div>
+  <div class="col-md-7">
+    <!-- Now 'app-recipe-detail' Component has nothing to do with recipe Service -->
+    <!-- <app-recipe-detail
+      *ngIf="recipe !== undefined; else notSelectedYet"
+      [recipe]="recipe"
+    ></app-recipe-detail>
+
+    <ng-template #notSelectedYet> 
+      <p>Please Select a Recipe</p>
+    </ng-template> -->
+
+    <!-- Making it a whole lot better -->
+    <!-- Getting recipe-detail by id in the url which is index of array -->
+    <!-- Dependengly Get currentRecipeDetail from service -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

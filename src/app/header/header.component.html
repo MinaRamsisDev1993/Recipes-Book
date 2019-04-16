@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <a [routerLink]="['/recipes']" class="navbar-brand">Recipe Book</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/recipes']">Recipes</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/shopping-list']">Shopping List</a>
+      </li>
+    </ul>
+
+    <div ngbDropdown class="navbar-nav ml-auto">
+      <!-- this directive of ng-template uses [ngIf] this way -->
+      <ng-template [ngIf]="!authService.isAuth()">
+        <a class="nav-link" [routerLink]="['/sign-up']">SignUp</a>
+        <a class="nav-link" [routerLink]="['/sign-in']">SignIn</a>
+      </ng-template>
+      <ng-template [ngIf]="authService.isAuth()">
+        <a class="nav-link" (click)="onLogout()" style="cursor: pointer;"
+          >Logout</a
+        >
+      </ng-template>
+
+      <a
+        style="cursor:pointer; color: grey;"
+        class="btn btn-outline-secondary manageBtn"
+        id="dropdownBasic1"
+        ngbDropdownToggle
+        *ngIf="authService.isAuth()"
+      >
+        Manage
+      </a>
+      <div ngbDropdownMenu>
+        <a style="cursor:pointer;" ngbDropdownItem (click)="saveRecipes()"
+          >Save Data</a
+        >
+        <a style="cursor:pointer;" ngbDropdownItem (click)="fetchRecipes()"
+          >Fetch Data</a
+        >
+      </div>
+    </div>
+  </div>
+</nav>

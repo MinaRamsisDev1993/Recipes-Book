@@ -1,0 +1,4 @@
+.manageBtn:hover,
+.manageBtn:active {
+  background-color: #f4f7fc !important;
+}

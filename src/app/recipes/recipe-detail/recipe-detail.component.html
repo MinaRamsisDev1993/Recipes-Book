@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col">
+    <img
+      src="{{ recipe.imagePath }}"
+      alt="{{ recipe.name }}"
+      class="img-responsive"
+    />
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h2>{{ recipe.name }}</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-5">
+    <div ngbDropdown class="navbar-nav ml-auto">
+      <button class="btn btn-primary" ngbDropdownToggle>
+        Manage Recipe
+      </button>
+      <div ngbDropdownMenu>
+        <a
+          style="cursor:pointer;"
+          ngbDropdownItem
+          (click)="sendIngrsToSL(recipe.ingredients)"
+        >
+          To Shopping List
+        </a>
+        <a
+          style="cursor:pointer;"
+          ngbDropdownItem
+          [routerLink]="['/recipes', id, 'edit']"
+          >Edit Recipe</a
+        >
+        <a style="cursor:pointer;" ngbDropdownItem (click)="onDelete()"
+          >Delete Recipe</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    {{ recipe.description }}
+  </div>
+</div>
+<div id="wrapper" *ngIf="ingredients.length === 0">
+  <h4>List Of Ingredients</h4>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let ingr of ingredients">
+          {{ ingr.name }} {{ ingr.amount }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

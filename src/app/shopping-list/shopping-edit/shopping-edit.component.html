@@ -1,0 +1,50 @@
+<form (ngSubmit)="onSubmit()" #formRef="ngForm">
+  <div class="row">
+    <div class="col-7 form-group">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="form-control"
+        [(ngModel)]="name"
+        required
+      />
+    </div>
+    <div class="col-3 form-group">
+      <label for="amount">Amount</label>
+      <input
+        type="number"
+        id="amount"
+        name="amount"
+        class="form-control"
+        [(ngModel)]="amount"
+        required
+        [pattern]="'^[1-9]+[0-9]?$'"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <input
+        type="submit"
+        class="btn btn-success mr-3"
+        [value]="!editMode ? 'Add' : 'Update'"
+        [disabled]="!formRef.valid"
+      />
+      <input
+        *ngIf="selectedIndex !== -1"
+        type="button"
+        value="Delete"
+        class="btn btn-danger mr-3"
+        (click)="onDelete()"
+      />
+      <input
+        type="button"
+        value="Clear"
+        class="btn btn-primary"
+        (click)="onClear()"
+      />
+    </div>
+  </div>
+</form>

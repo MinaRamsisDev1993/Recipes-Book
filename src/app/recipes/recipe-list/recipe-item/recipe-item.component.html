@@ -1,0 +1,21 @@
+<div class="col">
+  <a [routerLink]="['/recipes', id]"
+    ><div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5">
+            <h4>{{ recipe.name }}</h4>
+            <p>{{ recipe.description }}</p>
+          </div>
+          <div class="col-7" style="text-align: right">
+            <img
+              src="{{ recipe.imagePath }}"
+              alt="{{ recipe.name }}"
+              class="img-responsive"
+              style="max-height: 80px;"
+            />
+          </div>
+        </div>
+      </div></div
+  ></a>
+</div>
